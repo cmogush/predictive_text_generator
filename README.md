@@ -27,3 +27,33 @@ program that has ability to analyze text for training, then make logical predict
 <b>Tester</b> - used for testing, has the following methods:
 * *testGetFollows* - has no parameters. This method creates a MarkovOne object, sets the training text as “this is a test yes this is a test.”. Then it calls getFollows and prints out the resulting ArrayList and also its size.
 * *testGetFollowsWithFile* - has no parameters. This method creates a MarkovOne object, sets the training text to a file the user selects (similar to the methods in MarkovRunner), and then call getFollows. Example: if run on confucius.txt and looking for the characters that follow “t”, it will return 11548. 
+
+## Interface and Abstract Class (InterfaceAbstract)
+
+Restructuring the program to use an Interface an Abstract Class
+
+<b>MarkovRunnerWithInterface</b> - a class for running the program to generate random text. This class has several methods:
+* *runModel* - has three parameters: an IMarkovModel variable named markov, a String named text and an int named size. This method will work with any markov object that implements IMarkovModel.
+* *runMarkov* - creates one of the types of Markov models, and calls runModel with it to generate random text.
+* *printOut* - formats and prints the randomly generated text
+* <b>MarkovZero</b>, <b>MarkovOne</b>, <b>MarkovFour</b>, and <b>MarkovModel</b> classes modified to implement the iMarkovModel interface
+* *testHashMap* - creates an order-2 EfficientMarkovModel for testing purposes
+* *compareMethods* - runs a MarkovModel and an EfficientMarkovModel for comparison purposes
+
+<b>AbstractMarkovModel</b> - abstract class that implements IMarkovModel. This class has several items:
+* Two protected fields myText, a String, and myRandom, of type Random
+* A constructor that creates myRandom
+* A *setTraining* method that is public. This method sets the the private String variable myText to the parameter text.
+* A signature for the abstract method getRandomText that has one integer parameter named numChars indicating the length of the randomly generated text. 
+* *getFollows* - method modified to be protected instead of public, and removed from the Markov classes below
+* <b>MarkovZero</b>, <b>MarkovOne</b>, <b>MarkovFour</b>, and <b>MarkovModel</b> classes modified to extend the iMarkovModel interface
+
+<b>EfficientMarkovModel</b> - a class which extends AbstractMarkovModel and that builds a HashMap to calculate the follows ArrayList for each possible substring only once, and then uses the HashMap to look at the list of characters following when it is needed. This class includes:
+* *toString* - method to print that this is the <b>EfficientMarkovModel</b> class of a specific number
+* *buildMap* - method to build the HashMap
+* *getFollows* - method that can look up the ArrayList of Strings, instead of computing it each time
+
+
+Links to exercises:
+* https://www.coursera.org/learn/java-programming-design-principles/supplement/xToQx/programming-exercise-generating-random-text
+* https://www.coursera.org/learn/java-programming-design-principles/supplement/n1DIm/programming-exercise-interface-and-abstract-class
