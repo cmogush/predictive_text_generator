@@ -68,17 +68,25 @@ Restructuring the program to use an Interface an Abstract Class
 * *indexOf* - helper method that has three parameters, a String array named words, a String named target, and an integer named start. This method starts looking at the start position and returns the first index location in words that matches target. If no word is found, then this method returns -1. 
 * *testIndexOf* - has no parameters. This method is only for testing the indexOf method. This method creates a simple String array with the words “this is just a test yes this is a simple test” then look for the words: “this” starting at 0, “this” starting at 3, “frog” starting at 0, “frog” starting at 5, “simple” starting at 2 and “test” starting at 5. 
 
+<b>MarkovWordTwo</b> - a class, copied from MarkovWordOne. Modified to work for two consectuive words. Has two keys: key1 and key2 that are consecutive words in the text, and then *getFollows* returns the list of single words that follow these two words. 
+* For example: if the text was “this is just a test yes this is a simple test”, then getFollows of “this” “is” would return an ArrayList with “just” and “a”, and getFollows of “just” “a” returns an ArrayList with “test”. Specifically, we will do it slightly differently than in the videos:
+* *getFollows* - modified to have two String parameters, key1 and key2
+* *indexOf* - modified to have four parameters: a String array words, a String target1, a String target2, and an integer start. Returns the first location of target1 such that target2 immediately follows it, and the search starts looking at index start.
+
 <b>MarkovRunner</b> - a class which has four methods:
 * *runModel* - has three parameters, an IMarkovModel named markov, a String text that represents the training text, and an integer named size that represents the number of random words to generate. 
 * *runModel* - overloaded method which also includes a fourth parameter, an int named seed.
 * *runMarkov*  - has no parameters. This method reads in a file the user chooses, creates a MarkovWordOne object, and then calls runModel to generate and print three sets of randomly generated text using the file read in to choose the random words.
 * *printOut* - is called by *runModel* to print out the random text that was generated with around 60 characters per line. 
 >* If the random seed is set to 175 and generates 120 words, then run on the file confucius.txt. You should get the output (first five lines shown):
-> teacher. 12. He that his doings from the free distribution of
-> Ling, the people by learning; then those over with this or hate
-> daring and hates his muttering a belief in war. He refused all
-> likelihood, between men. Fan Ch'ih did not go with you? The Master
-> said, At his best pupil, who notifies you may ignore propriety;
+teacher. 12. He that his doings from the free distribution of
+Ling, the people by learning; then those over with this or hate
+daring and hates his muttering a belief in war. He refused all
+likelihood, between men. Fan Ch'ih did not go with you? The Master
+said, At his best pupil, who notifies you may ignore propriety;
+* *runMarkovTwo* - generates random text with MarkovWordTwo. 
+>* If run run confucius.txt with the random number seed 549. The first line of your output should be:
+the minister know me? Because I was not so great; xix. 21, says
 
 Links to exercises:
 * https://www.coursera.org/learn/java-programming-design-principles/supplement/xToQx/programming-exercise-generating-random-text
