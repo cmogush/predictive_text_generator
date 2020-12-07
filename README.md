@@ -46,14 +46,41 @@ Restructuring the program to use an Interface an Abstract Class
 * A *setTraining* method that is public. This method sets the the private String variable myText to the parameter text.
 * A signature for the abstract method getRandomText that has one integer parameter named numChars indicating the length of the randomly generated text. 
 * *getFollows* - method modified to be protected instead of public, and removed from the Markov classes below
-* <b>MarkovZero</b>, <b>MarkovOne</b>, <b>MarkovFour</b>, and <b>MarkovModel</b> classes modified to extend the iMarkovModel interface
+* <b>MarkovZero</b>, <b>MarkovOne</b>, <b>MarkovFour</b>, and <b>MarkovModel</b> classes modified to extend the IMarkovModel interface
 
 <b>EfficientMarkovModel</b> - a class which extends AbstractMarkovModel and that builds a HashMap to calculate the follows ArrayList for each possible substring only once, and then uses the HashMap to look at the list of characters following when it is needed. This class includes:
 * *toString* - method to print that this is the <b>EfficientMarkovModel</b> class of a specific number
 * *buildMap* - method to build the HashMap
 * *getFollows* - method that can look up the ArrayList of Strings, instead of computing it each time
 
+## Word N-Grams (WordNGramStarterProgram)
+
+<b>IMarkovModel</b> - an interface that has three signatures: 
+* *setTraining* - has one String parameter named text
+* *setRandom* - has one int parameter named seed
+* *getRandomText* - has one int parameter named numChars and returns a String
+
+<b>MarkovWordOne</b> - a class which has two private variables, a String array myText, to hold the words from the training text, and myRandom, a random number generator. It also has a constructor to initialize *myRandom* and the following methods:
+* *setRandom* - has one integer parameter named seed. Using this method will allow you to generate the same random text each time, which helps in testing the program.
+* *setTraining* - has one String parameter named text. The String text is split into words and stored in myText. The words are used to initialize the training text.
+* *getRandomText* - has one integer parameter named numWords. This method generates and returns random text that has numWords words. This class generates each word by randomly choosing a word from the training text that follows the current word in the training text. 
+* *getFollows* - has one String parameter named key. This method returns an ArrayList of all the single words that immediately follow an instance of key somewhere in the training text. 
+* *indexOf* - helper method that has three parameters, a String array named words, a String named target, and an integer named start. This method starts looking at the start position and returns the first index location in words that matches target. If no word is found, then this method returns -1. 
+* *testIndexOf* - has no parameters. This method is only for testing the indexOf method. This method creates a simple String array with the words “this is just a test yes this is a simple test” then look for the words: “this” starting at 0, “this” starting at 3, “frog” starting at 0, “frog” starting at 5, “simple” starting at 2 and “test” starting at 5. 
+
+<b>MarkovRunner</b> - a class which has four methods:
+* *runModel* - has three parameters, an IMarkovModel named markov, a String text that represents the training text, and an integer named size that represents the number of random words to generate. 
+* *runModel* - overloaded method which also includes a fourth parameter, an int named seed.
+* *runMarkov*  - has no parameters. This method reads in a file the user chooses, creates a MarkovWordOne object, and then calls runModel to generate and print three sets of randomly generated text using the file read in to choose the random words.
+* *printOut* - is called by *runModel* to print out the random text that was generated with around 60 characters per line. 
+>* If the random seed is set to 175 and generates 120 words, then run on the file confucius.txt. You should get the output (first five lines shown):
+> teacher. 12. He that his doings from the free distribution of
+> Ling, the people by learning; then those over with this or hate
+> daring and hates his muttering a belief in war. He refused all
+> likelihood, between men. Fan Ch'ih did not go with you? The Master
+> said, At his best pupil, who notifies you may ignore propriety;
 
 Links to exercises:
 * https://www.coursera.org/learn/java-programming-design-principles/supplement/xToQx/programming-exercise-generating-random-text
 * https://www.coursera.org/learn/java-programming-design-principles/supplement/n1DIm/programming-exercise-interface-and-abstract-class
+* https://www.coursera.org/learn/java-programming-design-principles/supplement/wkafw/programming-exercise-word-n-grams
